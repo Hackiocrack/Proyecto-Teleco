@@ -14,6 +14,14 @@ En este caso se esta usando una placa de Heltec WiFi LoRa 32 V3 y se esta progra
                    2- git clone https://github.com/HelTecAutomation/Heltec_ESP32.git
     3) Se instala en ambas placas el codigo correspondiente. 
 
+-- Librerias Utilizadas:
+    1) Heltec --> heltec_unofficial.h.
+    2) RadioLib.
+    3) MPU6050.
+    4) BluetoothSerial.h.
+    5) Esp32 by Espressif Systems.
+
+    
 -- Instalacion del Acelerometro:
     1)  muy buena pregunta hasxta aqui llegaron mis conocimientos
     
