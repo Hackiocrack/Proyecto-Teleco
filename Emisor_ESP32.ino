@@ -1,6 +1,6 @@
 #include "heltec_unofficial.h"
 
-#define BOTON 0   // botón integrado
+#define BOTON 26   // botón integrado
 
 // 🔹 DATOS DEL USUARIO (puedes cambiarlos)
 String ID = "USR01";
@@ -58,7 +58,7 @@ void setup() {
 void loop() {
 
   // 🔥 DETECCIÓN DE PULSACIÓN REAL (sin rebote)
-  if (digitalRead(BOTON) == LOW && !pulsadoAntes) {
+  if (digitalRead(BOTON) == HIGH && !pulsadoAntes) {
 
     String mensaje = crearMensaje();
 
