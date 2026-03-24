@@ -1,28 +1,50 @@
-# Proyecto-Teleco
-Proyecto Teleco. Se usan Placas ESP32 Lora V3, con el fin de poder ayudar a personas mayores con movilidad reducida o con algun problema para comunicarse con una persona de referencia o con los servicios de emergencia.
+# 📡 Proyecto Teleco
 
-En este caso se esta usando una placa de Heltec WiFi LoRa 32 V3 y se esta programando con el Arduino IDE. 
+Proyecto Teleco. Se usan placas ESP32 LoRa V3 con el objetivo de ayudar a personas mayores con movilidad reducida o con dificultades para comunicarse con una persona de referencia o con los servicios de emergencia.
 
--- Hardware utilizado: 
-    1) Placas Heltec WiFi LoRa ESP32 (V3).
-    2) Acelerometro MPU-6050.
-    
--- Configuracion de la Placa:
-    1) Se descarga el Arduino IDE https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.8_macOS_arm64.dmg (En mi caso es Mac OS.).
-    2) Se descarga la Libreria de Heltec.
-        Para ello: 1- cd Username/Documents/Arduino/Library                                                                                  
-	               2- git clone https://github.com/HelTecAutomation/Heltec_ESP32.git
-    3) Se instala en ambas placas el codigo correspondiente. 
+---
 
--- Librerias Utilizadas:
-    1) Heltec --> heltec_unofficial.h.
-    2) RadioLib.
-    3) MPU6050.
-    4) BluetoothSerial.h.
-    5) Esp32 by Espressif Systems.
+## 🛠️ Hardware utilizado
 
-    
--- Instalacion del Acelerometro:
-    1)  muy buena pregunta hasxta aqui llegaron mis conocimientos
+1. Placas Heltec WiFi LoRa ESP32 (V3)
+2. Acelerómetro MPU-6050
+
+---
+
+## ⚙️ Configuración de la placa
+
+1. Descargar el Arduino IDE:
+   https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.8_macOS_arm64.dmg
+   *(En mi caso es MacOS)*
+
+2. Descargar la librería de Heltec:
+
+   ```bash
+   cd ~/Documents/Arduino/Library
+   git clone https://github.com/HelTecAutomation/Heltec_ESP32.git
+   ```
+
+3. Instalar el código correspondiente en ambas placas.
+
+---
+
+## 📚 Librerías utilizadas
+
+* Heltec → `heltec_unofficial.h`
+* RadioLib
+* MPU6050
+* BluetoothSerial.h
+* ESP32 by Espressif Systems
+
+---
+
+## 🔌 Instalación del acelerómetro
+
+1. Muy buena pregunta… hasta aquí llegaron mis conocimientos 😅
+
+*(Pendiente de completar)*
+
+---
+
     
     
