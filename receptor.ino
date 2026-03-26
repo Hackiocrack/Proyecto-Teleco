@@ -3,13 +3,21 @@
 #include <BLEUtils.h>
 #include <BLEServer.h>
 
-// BLE
+// 🔵 BLE CONFIG
 #define SERVICE_UUID        "12345678-1234-1234-1234-123456789abc"
 #define CHARACTERISTIC_UUID "abcdefab-1234-1234-1234-abcdefabcdef"
 
 BLECharacteristic *pCharacteristic;
 bool deviceConnected = false;
 
+// 🔹 VARIABLES DATOS
+String ID = "";
+String evento = "";
+String urgencia = "";
+String medico = "";
+String bpm = "";
+
+// 🔹 BLE CALLBACKS
 class MyServerCallbacks: public BLEServerCallbacks {
   void onConnect(BLEServer* pServer) {
     deviceConnected = true;
@@ -19,15 +27,38 @@ class MyServerCallbacks: public BLEServerCallbacks {
   }
 };
 
-// 🔥 FUNCIÓN PANTALLA CORRECTA
-void mostrar(String l1, String l2, String l3) {
-  display.clear();
+// 🔹 PROCESAR MENSAJE
+void procesarMensaje(String msg) {
 
+  int i1 = msg.indexOf(',');
+  int i2 = msg.indexOf(',', i1 + 1);
+  int i3 = msg.indexOf(',', i2 + 1);
+  int i4 = msg.indexOf(',', i3 + 1);
+
+  if (i1 == -1 || i2 == -1 || i3 == -1 || i4 == -1) return;
+
+  ID = msg.substring(0, i1);
+  evento = msg.substring(i1 + 1, i2);
+  urgencia = msg.substring(i2 + 1, i3);
+  medico = msg.substring(i3 + 1, i4);
+  bpm = msg.substring(i4 + 1);
+}
+
+// 🔹 MOSTRAR EN PANTALLA
+void mostrar() {
+
+  display.clear();
   display.setFont(ArialMT_Plain_10);
 
-  display.drawString(0, 0, l1);
-  display.drawString(0, 15, l2);
-  display.drawString(0, 30, l3);
+  display.drawString(0, 0, "ID: " + ID);
+  display.drawString(0, 10, "Ev: " + evento);
+  display.drawString(0, 20, "Urg: " + urgencia);
+
+  // 🔥 DATOS MÉDICOS
+  display.drawString(0, 30, medico);
+
+  // ❤️ BPM DEBAJO
+  display.drawString(0, 45, bpm);
 
   display.display();
 }
@@ -36,27 +67,31 @@ void setup() {
 
   Serial.begin(115200);
 
-  // 🔥 ESTO ES LO MÁS IMPORTANTE DE TODO
+  // 🔥 INICIALIZAR HELTEC
   heltec_setup();
 
-  // 🔥 FUERZA ENCENDIDO DE PANTALLA (CLAVE EN V3)
+  // 🔥 ENCENDER PANTALLA (Vext)
   pinMode(36, OUTPUT);
-  digitalWrite(36, LOW);   
-  // 🔥 ENCENDER PANTALLA
+  digitalWrite(36, LOW);
   delay(100);
 
-  mostrar("INICIANDO...", "", "");
+  display.clear();
+  display.drawString(0, 0, "Iniciando...");
+  display.display();
 
-  // LoRa
+  // 🔹 INICIAR LORA
   int state = radio.begin(868.0);
 
   if (state != RADIOLIB_ERR_NONE) {
-    mostrar("ERROR LORA", "", "");
+    display.clear();
+    display.drawString(0, 0, "Error LoRa");
+    display.display();
     while (true);
   }
 
-  // BLE
+  // 🔹 CONFIGURAR BLE
   BLEDevice::init("SOS_Gateway");
+
   BLEServer *pServer = BLEDevice::createServer();
   pServer->setCallbacks(new MyServerCallbacks());
 
@@ -70,7 +105,11 @@ void setup() {
   pService->start();
   pServer->getAdvertising()->start();
 
-  mostrar("RECEPTOR OK", "BLE ACTIVO", "Esperando...");
+  display.clear();
+  display.drawString(0, 0, "RECEPTOR OK");
+  display.drawString(0, 15, "BLE ACTIVO");
+  display.drawString(0, 30, "Esperando...");
+  display.display();
 }
 
 void loop() {
@@ -83,11 +122,13 @@ void loop() {
 
     Serial.println("Recibido: " + mensaje);
 
-    mostrar("ALERTA",
-            mensaje.substring(0, 15),
-            "RECIBIDA");
+    // 🔥 PROCESAR MENSAJE
+    procesarMensaje(mensaje);
 
-    // BLE
+    // 🔥 MOSTRAR EN PANTALLA
+    mostrar();
+
+    // 🔵 ENVIAR POR BLE
     if (deviceConnected) {
       pCharacteristic->setValue(mensaje.c_str());
       pCharacteristic->notify();
