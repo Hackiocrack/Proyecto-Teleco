@@ -8,6 +8,7 @@ Proyecto Teleco. Se usan placas ESP32 LoRa V3 con el objetivo de ayudar a person
 
 1. Placas Heltec WiFi LoRa ESP32 (V3)
 2. Acelerómetro MPU-6050
+3. Pulsometro PulseSensor + XIAO
 
 ---
 
@@ -35,6 +36,7 @@ Proyecto Teleco. Se usan placas ESP32 LoRa V3 con el objetivo de ayudar a person
 * MPU6050
 * BluetoothSerial.h
 * ESP32 by Espressif Systems
+* PulseSensor Playground 
 
 ---
 
@@ -45,6 +47,9 @@ Proyecto Teleco. Se usan placas ESP32 LoRa V3 con el objetivo de ayudar a person
 *(Pendiente de completar)*
 
 ---
+## Instalacion del Pulsometro.
+1. buena pregunta
+2. 
 
     
     
